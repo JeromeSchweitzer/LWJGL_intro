@@ -3,6 +3,7 @@ package engine;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
+import util.Time;
 
 import java.security.Key;
 
@@ -95,16 +96,22 @@ public class Window {
     }
 
     public void loop() {
+        float beginTime = Time.getTime();
+        float endTime = Time.getTime();
         while (!glfwWindowShouldClose(glfwWindow)) {
             // Poll events
             glfwPollEvents();
-            float redVal = MouseListener.getX() / 640;
-            float blueVal = MouseListener.getY() / 480;
+//            float redVal = MouseListener.getX() / 640;
+//            float blueVal = MouseListener.getY() / 480;
 
             glClearColor(0.01f, 0.56f, 1.0f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
 
             glfwSwapBuffers(glfwWindow);
+
+            endTime = Time.getTime();
+            float dt = endTime - beginTime;
+            beginTime = endTime;
         }
     }
 }
